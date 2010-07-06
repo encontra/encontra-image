@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+    <modelVersion>4.0.0</modelVersion>
+    <name>EnContRA Image Core</name>
+    <packaging>jar</packaging>
+    <groupId>pt.inevo.encontra</groupId>
+    <artifactId>encontra-image-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>pt.inevo.encontra</groupId>
+        <artifactId>encontra-image</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+</project>
