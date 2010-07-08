@@ -33,8 +33,10 @@ abstract class LireVisualDescriptor extends EncontraDescriptor<ImageObject> {
     @Override
     public boolean extract(ImageObject object){
         try {
-            Method extractor=descriptor.getClass().getMethod("extract"); //There is no common interface with the extract method 
-            extractor.invoke(this,object);
+            Method [] methods=descriptor.getClass().getMethods();
+            Method extractor=descriptor.getClass().getMethod("extract",BufferedImage.class); //There is no common interface with the extract method 
+
+            extractor.invoke(descriptor,object.getObject());
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

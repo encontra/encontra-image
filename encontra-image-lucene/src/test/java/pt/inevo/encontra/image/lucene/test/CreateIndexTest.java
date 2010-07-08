@@ -65,7 +65,6 @@ public class CreateIndexTest extends TestCase {
         }
     }
 
-    private String testFilesPath = "/home/ricardo/ColaDI/EnContRA/additional_images/";
 
     public void testMain() throws FileNotFoundException, CorruptIndexException, IOException {
        LuceneEncontraDocumentBuilder builder = new LuceneEncontraDocumentBuilder(new EncontraDescriptor[] {
@@ -74,7 +73,7 @@ public class CreateIndexTest extends TestCase {
                 new EdgeHistogramDescriptor("EDGEHISTOGRAM")
        });
         IndexWriter iw = new IndexWriter(FSDirectory.open(new File("test-index-path-small")), new SimpleAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
-        for (String identifier : getAllImages(new File(testFilesPath), true)) {
+        for (String identifier : getAllImages(new File(getClass().getResource("/images").getPath()), true)) {
             System.out.println("Indexing file " + identifier);
             ImageObject<String> object = new ImageObject<String>();
             object.setId(identifier);

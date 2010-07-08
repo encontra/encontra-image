@@ -68,25 +68,26 @@ public class TestLuceneEncontraIndex extends TestCase {
         }
     }
 
-    private String testFilesPath = "/home/ricardo/ColaDI/EnContRA/additional_images/";
+
 
     public void testMain() throws FileNotFoundException, IOException {
+        String testFilesPath = getClass().getResource("/images").getPath();
         Engine e = new SimpleEngine();
-        Index<ImageObject> luceneIndex = new LuceneEncontraIndex<ImageObject>("testLuceneIndex");
+        PersistentIndex<ImageObject> luceneIndex = new LuceneEncontraIndex<ImageObject>("testLuceneIndex",ImageObject.class);  //  TODO - Use File.createTempFile()
         e.registerIndex(luceneIndex);
 
-        if (!((PersistentIndex)luceneIndex).load(testFilesPath)){
+        if (luceneIndex.load("testLuceneIndex")){
             for (String identifier : getAllImages(new File(testFilesPath), true)) {
                 System.out.println("Indexing file " + identifier);
                 ImageObject<String> object = new ImageObject<String>();
                 object.setId(identifier);
                 object.setImage(identifier);
-                luceneIndex.insertObject(object);
+                luceneIndex.insert(object);
             }
-            ((PersistentIndex)luceneIndex).save(testFilesPath);
+            luceneIndex.save("testLuceneIndex");
         }
 
-        String img="./src/test/resources/images/img01.jpg";
+        String img=getClass().getResource("/images/img01.jpg").getPath();
         ImageObject<String> object = new ImageObject<String>();
         object.setId(img);
         object.setImage(img);
@@ -98,8 +99,7 @@ public class TestLuceneEncontraIndex extends TestCase {
 
         ResultSet results = e.search(new Query[]{knnQuery, randomQuery});
         System.out.println("Printing the results...");
-        while (results.hasNext()){
-            Result r = results.getNext();
+        for(Result r : results){
             System.out.println("Result id: " + r.getResultObject().getId());
         }
     }
