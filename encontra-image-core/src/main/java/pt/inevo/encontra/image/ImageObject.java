@@ -3,30 +3,30 @@ package pt.inevo.encontra.image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.imageio.ImageIO;
 import pt.inevo.encontra.index.AbstractObject;
+import pt.inevo.encontra.storage.IEntry;
+import pt.inevo.encontra.storage.StorableObject;
 
 /**
  * Image Object for the EnConTRA API
  * @author ricardo
  */
-<<<<<<< HEAD:encontra-lucene-engine/src/main/java/pt/inevo/encontra/lucene/ImageObject.java
-public class ImageObject extends AbstractObject<String,BufferedImage> {
+public class ImageObject<ID extends Serializable> extends StorableObject<ID,BufferedImage,String> {
+    private String imagePath;
 
-    public ImageObject(BufferedImage image, String identifier){
-=======
-public class ImageObject<I> extends AbstractObject<I,BufferedImage> {
     public ImageObject() {
         super();
     }
-    public ImageObject(I identifier,BufferedImage image){
->>>>>>> 545adf864a876185843fe635cde7171cd5d26d22:encontra-image/encontra-image-core/src/main/java/pt/inevo/encontra/image/ImageObject.java
+    public ImageObject(ID identifier,BufferedImage image){
         super(identifier, image);
     }
 
 
     public void setImage(String imagePath){
         try {
+            this.imagePath=imagePath;
             BufferedImage image = ImageIO.read(new File(imagePath));
             setObject(image);
         } catch (IOException ex) {
@@ -34,4 +34,13 @@ public class ImageObject<I> extends AbstractObject<I,BufferedImage> {
         }
     }
 
+    @Override
+    public String getValue() {
+        return this.imagePath;
+    }
+
+    @Override
+    public void setValue(String imagePath) {
+        setImage(imagePath);
+    }
 }

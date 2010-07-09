@@ -1,37 +1,54 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.ColorLayoutImpl;
 import at.lux.imageanalysis.VisualDescriptor;
-import pt.inevo.encontra.descriptors.EncontraDescriptor;
+import pt.inevo.encontra.common.distance.DistanceMeasure;
+import pt.inevo.encontra.common.distance.HasDistance;
+import pt.inevo.encontra.descriptors.Descriptor;
+import pt.inevo.encontra.descriptors.DescriptorExtractor;
 import pt.inevo.encontra.image.ImageObject;
+import pt.inevo.encontra.index.AbstractObject;
+import pt.inevo.encontra.index.Vector;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-abstract class LireVisualDescriptor extends EncontraDescriptor<ImageObject> {
-    VisualDescriptor descriptor=null;
+abstract class LireVisualDescriptor<O extends ImageObject> implements Descriptor<String>, DescriptorExtractor<O,LireVisualDescriptor> {
+
+    protected VisualDescriptor descriptor=null;
+    protected String id;
     
     public LireVisualDescriptor() {
         this(null);
     }
     public LireVisualDescriptor(String id) {
-        super(id);
+        this.id=id;
         descriptor=getVisualDescriptorImpl();
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     protected abstract VisualDescriptor getVisualDescriptorImpl();
 
-    public String getType() {
-        return ColorLayoutDescriptor.class.getCanonicalName();
+    @Override
+    public LireVisualDescriptor newDescriptor(Class<LireVisualDescriptor> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public VisualDescriptor getVisualDescriptor(){
-        return descriptor;
-    }
     @Override
-    public boolean extract(ImageObject object){
+    public LireVisualDescriptor extract(O object){
         try {
             Method [] methods=descriptor.getClass().getMethods();
             Method extractor=descriptor.getClass().getMethod("extract",BufferedImage.class); //There is no common interface with the extract method 
@@ -44,12 +61,12 @@ abstract class LireVisualDescriptor extends EncontraDescriptor<ImageObject> {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return true;
+        return this;
     }
 
     @Override
-    public double getDistance(EncontraDescriptor<ImageObject> other) {       
-        return descriptor.getDistance( ((LireVisualDescriptor)other).getVisualDescriptor());
+    public double getDistance(Descriptor<String> other) {
+       return descriptor.getDistance( ((LireVisualDescriptor)other).getVisualDescriptorImpl());
     }
 
     @Override
@@ -57,15 +74,43 @@ abstract class LireVisualDescriptor extends EncontraDescriptor<ImageObject> {
         return descriptor.getStringRepresentation();
     }
 
+
     @Override
-    public double[] getDoubleRepresentation() {
-        //TO DO
-        return new double [1];
+    public Descriptor<String> setStringRepresentation(String d) {
+        descriptor.setStringRepresentation(d);
+        return this;
+    }
+
+
+
+    @Override
+    public Descriptor<String>  clone() {
+        throw new NotImplementedException();
     }
 
     @Override
-    public EncontraDescriptor<ImageObject> setStringRepresentation(String d) {
-        descriptor.setStringRepresentation(d);
-        return this;
+    public boolean equals(Object o) {
+        throw new NotImplementedException();
+    }
+
+
+    @Override
+    public Object getKey() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void setKey(Object key) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Object getValue() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void setValue(Object o) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
