@@ -13,7 +13,7 @@ import pt.inevo.encontra.image.ImageObject;
 import pt.inevo.encontra.image.descriptors.ColorLayoutDescriptor;
 import pt.inevo.encontra.image.descriptors.EdgeHistogramDescriptor;
 import pt.inevo.encontra.image.descriptors.ScalableColorDescriptor;
-import pt.inevo.encontra.lucene.LuceneEncontraIndex;
+import pt.inevo.encontra.lucene.index.LuceneEncontraIndex;
 import pt.inevo.encontra.lucene.SimpleSearcher;
 import pt.inevo.encontra.lucene.index.LuceneDescriptor;
 import pt.inevo.encontra.lucene.index.SimpleSearchHits;

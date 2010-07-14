@@ -1,21 +1,20 @@
 package pt.inevo.encontra.image.descriptors;
 
 import at.lux.imageanalysis.VisualDescriptor;
-import pt.inevo.encontra.common.distance.DistanceMeasure;
-import pt.inevo.encontra.common.distance.HasDistance;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
 import pt.inevo.encontra.image.ImageObject;
 import pt.inevo.encontra.index.AbstractObject;
-import pt.inevo.encontra.index.Vector;
+import pt.inevo.encontra.index.IndexedObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-abstract class LireVisualDescriptor<O extends ImageObject> implements Descriptor<String>, DescriptorExtractor<O,LireVisualDescriptor> {
+abstract class LireVisualDescriptor<O extends IndexedObject> implements Descriptor<String>, DescriptorExtractor<O,LireVisualDescriptor> {
 
     protected VisualDescriptor descriptor=null;
     protected String id;
@@ -95,22 +94,12 @@ abstract class LireVisualDescriptor<O extends ImageObject> implements Descriptor
 
 
     @Override
-    public Object getKey() {
+    public Serializable getValue() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void setKey(Object key) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public Object getValue() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void setValue(Object o) {
+    public void setValue(Serializable o) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
