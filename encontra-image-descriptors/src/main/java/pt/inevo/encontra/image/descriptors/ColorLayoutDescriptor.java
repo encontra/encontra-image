@@ -3,8 +3,6 @@ package pt.inevo.encontra.image.descriptors;
 import at.lux.imageanalysis.ColorLayoutImpl;
 import at.lux.imageanalysis.VisualDescriptor;
 import pt.inevo.encontra.image.ImageObject;
-import pt.inevo.encontra.index.AbstractObject;
-
 
 /**
  *
