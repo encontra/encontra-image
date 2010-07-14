@@ -1,30 +1,32 @@
 package pt.inevo.encontra.image;
 
+import pt.inevo.encontra.index.IndexedObject;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.imageio.ImageIO;
 
 /**
  * Image Object for the EnConTRA API
  * @author ricardo
  */
-public class Image {
+public class IndexedImage<ID extends Serializable> extends IndexedObject<ID,BufferedImage> {
     private String imagePath;
-    private BufferedImage image;
     
-    public Image() {
+    public IndexedImage() {
         super();
     }
-    public Image(BufferedImage image){
-        this.image=image;
+    public IndexedImage(BufferedImage image){
+        this.object=image;
     }
 
 
-    public Image(String imagePath){
+    public IndexedImage(String imagePath){
         try {
             this.imagePath=imagePath;
-            image = ImageIO.read(new File(imagePath));
+            object = ImageIO.read(new File(imagePath));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

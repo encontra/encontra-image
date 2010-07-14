@@ -18,8 +18,4 @@ public class EdgeHistogramDescriptor extends LireVisualDescriptor {
         return EdgeHistogramDescriptor.class.getCanonicalName();
     }
 
-    @Override
-    public EdgeHistogramDescriptor setStringRepresentation(String d) {
-        return (EdgeHistogramDescriptor) super.setStringRepresentation(d);
-    }
 }

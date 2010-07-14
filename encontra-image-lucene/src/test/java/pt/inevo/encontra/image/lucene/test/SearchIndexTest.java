@@ -8,22 +8,16 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.NoLockFactory;
 import org.apache.lucene.store.SimpleFSDirectory;
-import pt.inevo.encontra.descriptors.EncontraDescriptor;
-import pt.inevo.encontra.image.ImageObject;
 import pt.inevo.encontra.image.descriptors.ColorLayoutDescriptor;
 import pt.inevo.encontra.image.descriptors.EdgeHistogramDescriptor;
 import pt.inevo.encontra.image.descriptors.ScalableColorDescriptor;
-import pt.inevo.encontra.lucene.index.LuceneEncontraIndex;
-import pt.inevo.encontra.lucene.SimpleSearcher;
-import pt.inevo.encontra.lucene.index.LuceneDescriptor;
-import pt.inevo.encontra.lucene.index.SimpleSearchHits;
 
 /**
  * Test the creation of an ImageObject (with the underlying Document from Lucene)
  * @author ricardo
  */
 public class SearchIndexTest extends TestCase {
-
+   /*
     public SearchIndexTest(String testName) {
         super(testName);
     }
@@ -84,5 +78,5 @@ public class SearchIndexTest extends TestCase {
         for (int i = 0; i < 3; i++) {
             System.out.println(hits.score(i) + ": " + hits.doc(i).getField("IDENTIFIER").stringValue());
         }
-    }
+    } */
 }

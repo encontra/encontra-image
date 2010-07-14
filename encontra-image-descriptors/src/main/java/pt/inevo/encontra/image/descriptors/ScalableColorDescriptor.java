@@ -18,8 +18,5 @@ public class ScalableColorDescriptor extends LireVisualDescriptor {
         return new ScalableColorImpl();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-     @Override
-    public ScalableColorDescriptor setStringRepresentation(String d) {
-        return (ScalableColorDescriptor) super.setStringRepresentation(d);
-    }
+
 }

@@ -10,12 +10,10 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.FSDirectory;
-import pt.inevo.encontra.descriptors.EncontraDescriptor;
-import pt.inevo.encontra.image.ImageObject;
 import pt.inevo.encontra.image.descriptors.ColorLayoutDescriptor;
 import pt.inevo.encontra.image.descriptors.EdgeHistogramDescriptor;
 import pt.inevo.encontra.image.descriptors.ScalableColorDescriptor;
-import pt.inevo.encontra.lucene.index.LuceneEncontraDocumentBuilder;
+
 
 /**
  * Test the creation of an ImageObject (with the underlying Document from Lucene)
@@ -65,7 +63,7 @@ public class CreateIndexTest extends TestCase {
         }
     }
 
-
+    /*
     public void testMain() throws FileNotFoundException, CorruptIndexException, IOException {
        LuceneEncontraDocumentBuilder builder = new LuceneEncontraDocumentBuilder(new EncontraDescriptor[] {
                new ScalableColorDescriptor("SCALABLECOLOR"),
@@ -83,5 +81,5 @@ public class CreateIndexTest extends TestCase {
         }
         iw.optimize();
         iw.close();
-    }
+    }*/
 }

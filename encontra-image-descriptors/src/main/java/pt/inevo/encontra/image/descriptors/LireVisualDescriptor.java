@@ -3,9 +3,7 @@ package pt.inevo.encontra.image.descriptors;
 import at.lux.imageanalysis.VisualDescriptor;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
-import pt.inevo.encontra.image.ImageObject;
-import pt.inevo.encontra.index.AbstractObject;
-import pt.inevo.encontra.index.IndexedObject;
+import pt.inevo.encontra.image.IndexedImage;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.image.BufferedImage;
@@ -14,36 +12,34 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-abstract class LireVisualDescriptor<O extends IndexedObject> implements Descriptor<String>, DescriptorExtractor<O,LireVisualDescriptor> {
+abstract class LireVisualDescriptor<O extends IndexedImage> extends DescriptorExtractor<O,LireVisualDescriptor> implements Descriptor {
 
     protected VisualDescriptor descriptor=null;
-    protected String id;
-    
-    public LireVisualDescriptor() {
-        this(null);
-    }
-    public LireVisualDescriptor(String id) {
-        this.id=id;
-        descriptor=getVisualDescriptorImpl();
-    }
+    protected String name;
+
+     public LireVisualDescriptor(String name){
+         super();
+         this.name=name;
+         descriptor=getVisualDescriptorImpl();
+     }
 
     @Override
     public String getId() {
-        return id;
+        return null;
+    }
+
+    @Override
+    public void setId(Serializable id) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     protected abstract VisualDescriptor getVisualDescriptorImpl();
 
+
     @Override
-    public LireVisualDescriptor newDescriptor(Class<LireVisualDescriptor> clazz) {
-        try {
-            return clazz.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+    protected O setupIndexedObject(LireVisualDescriptor descriptor, O object) {
+        object.setId(descriptor.getId());
+        return object;
     }
 
     @Override
@@ -52,7 +48,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> implements Descript
             Method [] methods=descriptor.getClass().getMethods();
             Method extractor=descriptor.getClass().getMethod("extract",BufferedImage.class); //There is no common interface with the extract method 
 
-            extractor.invoke(descriptor,object.getObject());
+            extractor.invoke(descriptor,object.getValue());
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -64,26 +60,13 @@ abstract class LireVisualDescriptor<O extends IndexedObject> implements Descript
     }
 
     @Override
-    public double getDistance(Descriptor<String> other) {
-       return descriptor.getDistance( ((LireVisualDescriptor)other).getVisualDescriptorImpl());
-    }
-
-    @Override
-    public String getStringRepresentation() {
-        return descriptor.getStringRepresentation();
+    public double getDistance(Descriptor other) {
+       return getVisualDescriptorImpl().getDistance( ((LireVisualDescriptor)other).getVisualDescriptorImpl());
     }
 
 
     @Override
-    public Descriptor<String> setStringRepresentation(String d) {
-        descriptor.setStringRepresentation(d);
-        return this;
-    }
-
-
-
-    @Override
-    public Descriptor<String>  clone() {
+    public Descriptor  clone() {
         throw new NotImplementedException();
     }
 
@@ -95,11 +78,16 @@ abstract class LireVisualDescriptor<O extends IndexedObject> implements Descript
 
     @Override
     public Serializable getValue() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return descriptor.getStringRepresentation();
     }
 
     @Override
-    public void setValue(Serializable o) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void setValue(Object o) {
+        descriptor.setStringRepresentation((String)o);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

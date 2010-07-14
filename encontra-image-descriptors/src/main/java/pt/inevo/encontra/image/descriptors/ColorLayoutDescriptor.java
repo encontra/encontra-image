@@ -2,15 +2,14 @@ package pt.inevo.encontra.image.descriptors;
 
 import at.lux.imageanalysis.ColorLayoutImpl;
 import at.lux.imageanalysis.VisualDescriptor;
-import pt.inevo.encontra.image.ImageObject;
-import pt.inevo.encontra.index.AbstractObject;
+import pt.inevo.encontra.image.IndexedImage;
 
 
 /**
  *
  * @author ricardo
  */
-public class ColorLayoutDescriptor<O extends ImageObject> extends LireVisualDescriptor<O> {
+public class ColorLayoutDescriptor<O extends IndexedImage> extends LireVisualDescriptor<O> {
     // numCCoeff = 28, numYCoeff = 64 <=> 
 
     public ColorLayoutDescriptor() {
@@ -29,9 +28,5 @@ public class ColorLayoutDescriptor<O extends ImageObject> extends LireVisualDesc
         return ColorLayoutDescriptor.class.getCanonicalName();
     }
 
-    @Override
-    public ColorLayoutDescriptor setStringRepresentation(String d) {
-        return (ColorLayoutDescriptor) super.setStringRepresentation(d);
-    }
 
 }
