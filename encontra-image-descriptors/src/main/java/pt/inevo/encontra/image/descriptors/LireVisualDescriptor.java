@@ -1,6 +1,6 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.VisualDescriptor;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
 import pt.inevo.encontra.image.IndexedImage;
@@ -14,26 +14,37 @@ import java.lang.reflect.Method;
 
 abstract class LireVisualDescriptor<O extends IndexedImage> extends DescriptorExtractor<O,LireVisualDescriptor> implements Descriptor {
 
-    protected VisualDescriptor descriptor=null;
+    protected LireFeature descriptor=null;
     protected String name;
+    protected Serializable id;
 
      public LireVisualDescriptor(String name){
          super();
          this.name=name;
-         descriptor=getVisualDescriptorImpl();
+         try {
+             descriptor=getVisualDescriptorImplClass().newInstance();
+         } catch (InstantiationException e) {
+             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+         } catch (IllegalAccessException e) {
+             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+         }
      }
 
     @Override
-    public String getId() {
-        return null;
+    public Serializable getId() {
+        return this.id;
     }
 
     @Override
     public void setId(Serializable id) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        this.id=id;
     }
 
-    protected abstract VisualDescriptor getVisualDescriptorImpl();
+    protected LireFeature getVisualDescriptorImpl(){
+        return descriptor;
+    }
+
+    protected abstract Class<? extends LireFeature> getVisualDescriptorImplClass();
 
 
     @Override
@@ -49,6 +60,7 @@ abstract class LireVisualDescriptor<O extends IndexedImage> extends DescriptorEx
             Method extractor=descriptor.getClass().getMethod("extract",BufferedImage.class); //There is no common interface with the extract method 
 
             extractor.invoke(descriptor,object.getValue());
+            setId(object.getId());
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -67,11 +79,6 @@ abstract class LireVisualDescriptor<O extends IndexedImage> extends DescriptorEx
 
     @Override
     public Descriptor  clone() {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public boolean equals(Object o) {
         throw new NotImplementedException();
     }
 

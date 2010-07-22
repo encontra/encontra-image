@@ -1,7 +1,7 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.ColorLayoutImpl;
-import at.lux.imageanalysis.VisualDescriptor;
+import net.semanticmetadata.lire.imageanalysis.ColorLayout;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.image.IndexedImage;
 
 
@@ -20,8 +20,8 @@ public class ColorLayoutDescriptor<O extends IndexedImage> extends LireVisualDes
     }
 
     @Override
-    protected VisualDescriptor getVisualDescriptorImpl() {
-        return new ColorLayoutImpl(); 
+    protected Class<? extends LireFeature> getVisualDescriptorImplClass() {
+        return ColorLayout.class;
     }
 
     public String getType() {

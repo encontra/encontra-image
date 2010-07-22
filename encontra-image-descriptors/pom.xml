@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>net.semanticmetadata</groupId>
-            <artifactId>caliph-emir-cbir</artifactId>
+            <artifactId>lire-imageanalysis</artifactId>
             <version>0.8</version>
         </dependency>
     </dependencies>

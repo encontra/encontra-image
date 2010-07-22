@@ -1,7 +1,7 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.ScalableColorImpl;
 import at.lux.imageanalysis.VisualDescriptor;
+import net.semanticmetadata.lire.imageanalysis.ScalableColor;
 
 /**
  *
@@ -14,9 +14,13 @@ public class ScalableColorDescriptor extends LireVisualDescriptor {
     }
 
     @Override
-    protected VisualDescriptor getVisualDescriptorImpl() {
-        return new ScalableColorImpl();  //To change body of implemented methods use File | Settings | File Templates.
+    protected Class<? extends VisualDescriptor> getVisualDescriptorImplClass() {
+        return ScalableColor.class;
     }
 
-
+    @Override
+    public void setValue(Object o) {
+        descriptor=new ScalableColor();
+        descriptor.setStringRepresentation((String) o);
+    }
 }

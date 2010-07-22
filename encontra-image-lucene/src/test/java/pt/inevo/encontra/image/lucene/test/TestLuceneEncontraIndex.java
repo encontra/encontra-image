@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import junit.framework.TestCase;
 import pt.inevo.encontra.image.IndexedImage;
-import pt.inevo.encontra.image.lucene.SimpleImageSearcher;
+import pt.inevo.encontra.image.lucene.ImageSearcherFactory;
 import pt.inevo.encontra.index.Result;
 import pt.inevo.encontra.index.ResultSet;
 import pt.inevo.encontra.index.search.Searcher;
@@ -68,22 +68,25 @@ public class TestLuceneEncontraIndex extends TestCase {
 
     public void testMain() throws FileNotFoundException, IOException {
         String testFilesPath = getClass().getResource("/images").getPath();
-        Searcher<IndexedImage> searcher=new SimpleImageSearcher<IndexedImage>();
+
+        //Searcher<IndexedImage> searcher= ImageSearcherFactory.createCEDDImageSearcher(IndexedImage.class);
+        Searcher<IndexedImage> searcher= ImageSearcherFactory.createWeightedSearcher(1,1,1);
+        //Searcher<IndexedImage> searcher= ImageSearcherFactory.createFCTHImageSearcher(IndexedImage.class);
+
         //Engine e = new SimpleEngine();
         //e.setSearcher();
 
+        for (String path : getAllImages(new File(testFilesPath), true)) {
+            System.out.println("Indexing file " + path);
+            IndexedImage img= new IndexedImage(path);
+            img.setId(path);
 
-            for (String identifier : getAllImages(new File(testFilesPath), true)) {
-                System.out.println("Indexing file " + identifier);
-                IndexedImage img= new IndexedImage(identifier);
-                img.setId(identifier);
-
-                searcher.insert(img);
-            }
-            //luceneIndex.save("testLuceneIndex");
+            searcher.insert(img);
+        }
+        //luceneIndex.save("testLuceneIndex");
 
 
-        String img=getClass().getResource("/images/img01.jpg").getPath();
+        String img=getClass().getResource("/images/img04.jpg").getPath();
         IndexedImage query = new IndexedImage(img);
         query.setId(img);
 
@@ -96,7 +99,7 @@ public class TestLuceneEncontraIndex extends TestCase {
         ResultSet<IndexedImage> results = searcher.search(knnQuery);
         System.out.println("Printing the results...");
         for(Result<IndexedImage> r : results){
-            System.out.println("Result id: " + r.getResult());
+            System.out.println("Similarity: "+r.getSimilarity()+" Result id: " + r.getResult().getId());
         }
     }
 }

@@ -1,7 +1,7 @@
 package pt.inevo.encontra.image.descriptors;
 
 import at.lux.imageanalysis.DominantColorImplementation;
-import at.lux.imageanalysis.VisualDescriptor;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
 
 /**
  *
@@ -14,7 +14,7 @@ public class DominantColorDescriptor extends LireVisualDescriptor {
     }
 
     @Override
-    protected VisualDescriptor getVisualDescriptorImpl() {
+     protected Class<? extends LireFeature> getVisualDescriptorImplClass() {
         return null; // new DominantColorImplementation();
     }
 

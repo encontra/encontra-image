@@ -37,8 +37,14 @@ public class SimpleImageSearcher<O extends IndexedImage> extends SimpleSearcher<
             });
         }
     }
-    public SimpleImageSearcher() {
+
+    public SimpleImageSearcher(double colorHistogramWeight,double colorDistributionWeight,double textureWeight) {
         super();
+
+        this.colorHistogramWeight=colorHistogramWeight;
+        this.colorDistributionWeight=colorDistributionWeight;
+        this.textureWeight=textureWeight;
+
         LuceneIndex index=new LuceneIndex("image-index",SimpleImageDescriptor.class);
         index.load("testLuceneIndex");
         this.setIndex(index);
@@ -48,8 +54,12 @@ public class SimpleImageSearcher<O extends IndexedImage> extends SimpleSearcher<
         extractor.addExtractor(new ColorLayoutDescriptor("COLORLAYOUT"),colorDistributionWeight);
         extractor.addExtractor(new EdgeHistogramDescriptor("EDGEHISTOGRAM"),textureWeight);
         setDescriptorExtractor(extractor);
+    }
+    public SimpleImageSearcher() {
+        this(1.0,1.0,1.0);
 
     }
+
 
 
 }
