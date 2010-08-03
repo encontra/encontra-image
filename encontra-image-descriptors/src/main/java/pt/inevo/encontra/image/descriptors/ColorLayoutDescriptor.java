@@ -1,22 +1,24 @@
 package pt.inevo.encontra.image.descriptors;
 
+import java.awt.image.BufferedImage;
 import net.semanticmetadata.lire.imageanalysis.ColorLayout;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
-import pt.inevo.encontra.image.IndexedImage;
+import pt.inevo.encontra.index.IndexedObject;
 
 
 /**
  *
  * @author ricardo
  */
-public class ColorLayoutDescriptor<O extends IndexedImage> extends LireVisualDescriptor<O> {
+public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
     // numCCoeff = 28, numYCoeff = 64 <=> 
 
     public ColorLayoutDescriptor() {
-        this(null);
+        this("");
     }
     public ColorLayoutDescriptor(String id) {
         super(id);
+        super.getVisualDescriptorImpl().extract(new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB));
     }
 
     @Override
@@ -27,6 +29,4 @@ public class ColorLayoutDescriptor<O extends IndexedImage> extends LireVisualDes
     public String getType() {
         return ColorLayoutDescriptor.class.getCanonicalName();
     }
-
-
 }
