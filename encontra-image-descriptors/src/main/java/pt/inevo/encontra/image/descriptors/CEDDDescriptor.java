@@ -1,16 +1,14 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.VisualDescriptor;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
-import net.semanticmetadata.lire.imageanalysis.ScalableColor;
-import pt.inevo.encontra.image.IndexedImage;
+import pt.inevo.encontra.index.IndexedObject;
 
 /**
  *
  * @author ricardo
  */
-public class CEDDDescriptor<O extends IndexedImage> extends LireVisualDescriptor<O> {
+public class CEDDDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
 
     public CEDDDescriptor(){
         super("CEDD");
@@ -20,5 +18,4 @@ public class CEDDDescriptor<O extends IndexedImage> extends LireVisualDescriptor
     protected Class<? extends LireFeature> getVisualDescriptorImplClass() {
         return CEDD.class;
     }
-
 }

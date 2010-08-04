@@ -12,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import pt.inevo.encontra.index.IndexedObject;
 
 abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorExtractor<O, LireVisualDescriptor> implements Descriptor {
@@ -96,38 +95,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         return name;
     }
 
-    @Override
-    public double[] getDoubleRepresentation() {
-        String stringRep = descriptor.getStringRepresentation();
-        String [] strValues = stringRep.split("z");
-
-        int totalLength = 0;
-        for (int i = 0; i < strValues.length ; i++){
-            String [] parcValues = strValues[i].split(" ");
-            totalLength += parcValues.length;
-        }
-        double[] result = new double[totalLength];
-
-        for (int i = 0; i < strValues.length ; ){
-            String [] parcValues = strValues[i].split(" ");
-            for (int j = 0; j < parcValues.length ; j++, i++){
-                result[i] = (Double.parseDouble(parcValues[j]));
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public void setDoubleRepresentation(double[] values){
-        //TO DO - must fix this, because it will not work
-        String strRep = "";
-        for (int i = 0; i < values.length ; i++){
-            strRep += values[i] + " ";
-        }
-        descriptor.setStringRepresentation(strRep);
-    }
-
+    //serializing the descriptor
     private void writeObject(ObjectOutputStream out)
             throws IOException {
         out.writeObject(id);
@@ -135,6 +103,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         out.writeChars(descriptor.getStringRepresentation());
     }
 
+    //desserializing the descriptor
     private void readObject(ObjectInputStream in)
             throws IOException, ClassNotFoundException {
         id = (Serializable)in.readObject();

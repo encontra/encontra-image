@@ -1,6 +1,5 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.DominantColorImplementation;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 
 /**
@@ -21,7 +20,4 @@ public class DominantColorDescriptor extends LireVisualDescriptor {
     public String getType() {
         return DominantColorDescriptor.class.getCanonicalName();
     }
-
-   
-
 }

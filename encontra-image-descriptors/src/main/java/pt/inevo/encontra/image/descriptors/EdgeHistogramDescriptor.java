@@ -2,15 +2,7 @@ package pt.inevo.encontra.image.descriptors;
 
 import at.lux.imageanalysis.VisualDescriptor;
 import net.semanticmetadata.lire.imageanalysis.EdgeHistogram;
-import pt.inevo.encontra.descriptors.Descriptor;
-import pt.inevo.encontra.image.IndexedImage;
-import pt.inevo.encontra.storage.IEntity;
-
-import java.awt.image.BufferedImage;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.StringTokenizer;
-
+import pt.inevo.encontra.index.IndexedObject;
 
 public class EdgeHistogramDescriptor extends LireVisualDescriptor {
     public EdgeHistogramDescriptor(String id) {
@@ -27,7 +19,7 @@ public class EdgeHistogramDescriptor extends LireVisualDescriptor {
     }
 
     @Override
-    public LireVisualDescriptor extract(IndexedImage object) {
+    public LireVisualDescriptor extract(IndexedObject object) {
         this.descriptor=new EdgeHistogram();
         return super.extract(object);
     }

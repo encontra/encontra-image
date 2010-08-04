@@ -19,6 +19,7 @@ public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDe
     public ColorLayoutDescriptor(String id) {
         super(id);
         super.getVisualDescriptorImpl().extract(new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB));
+        super.indexObjectClass = (Class<O>) IndexedObject.class;
     }
 
     @Override
