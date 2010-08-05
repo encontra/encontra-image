@@ -6,7 +6,7 @@ import pt.inevo.encontra.index.IndexedObject;
 
 public class EdgeHistogramDescriptor extends LireVisualDescriptor {
     public EdgeHistogramDescriptor(String id) {
-        super(id);
+        super(id, EdgeHistogramDescriptor.class, IndexedObject.class);
     }
 
     @Override

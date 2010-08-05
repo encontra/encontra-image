@@ -11,7 +11,7 @@ import pt.inevo.encontra.index.IndexedObject;
 public class CEDDDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
 
     public CEDDDescriptor(){
-        super("CEDD");
+        super("CEDD", CEDDDescriptor.class, IndexedObject.class);
     }
 
     @Override

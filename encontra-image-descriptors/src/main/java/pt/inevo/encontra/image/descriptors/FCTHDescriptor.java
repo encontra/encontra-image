@@ -11,7 +11,7 @@ import pt.inevo.encontra.index.IndexedObject;
 public class FCTHDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
 
     public FCTHDescriptor(){
-        super("FCTH");
+        super("FCTH", FCTHDescriptor.class, IndexedObject.class);
     }
 
     @Override

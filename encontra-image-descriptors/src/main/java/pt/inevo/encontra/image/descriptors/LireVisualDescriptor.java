@@ -3,7 +3,6 @@ package pt.inevo.encontra.image.descriptors;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,15 +13,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import pt.inevo.encontra.index.IndexedObject;
 
-abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorExtractor<O, LireVisualDescriptor> implements Descriptor {
+abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorExtractor<O, LireVisualDescriptor> implements Descriptor, Cloneable {
 
     protected LireFeature descriptor = null;
     protected String name;
     protected Serializable id;
 
-    public LireVisualDescriptor(String name) {
+    public LireVisualDescriptor(String name, Class descriptorClazz, Class indexObjectClazz) {
         super();
         this.name = name;
+        super.descriptorClass = descriptorClazz;
+        super.indexObjectClass = indexObjectClazz;
         try {
             descriptor = getVisualDescriptorImplClass().newInstance();
         } catch (InstantiationException e) {
@@ -67,17 +68,29 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return this;
+        return this.clone();
+    }
+
+    @Override
+    protected LireVisualDescriptor clone() {
+        LireVisualDescriptor newDescriptor = null;
+        try {
+
+            newDescriptor = (LireVisualDescriptor) super.descriptorClass.newInstance();
+            newDescriptor.setId(this.id);
+            newDescriptor.setValue(this.getValue());
+            
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
+        return newDescriptor;
     }
 
     @Override
     public double getDistance(Descriptor other) {
         return getVisualDescriptorImpl().getDistance(((LireVisualDescriptor) other).getVisualDescriptorImpl());
-    }
-
-    @Override
-    public Descriptor clone() {
-        throw new NotImplementedException();
     }
 
     @Override

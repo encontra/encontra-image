@@ -12,9 +12,8 @@ public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDe
         this("");
     }
     public ColorLayoutDescriptor(String id) {
-        super(id);
+        super(id, ColorLayoutDescriptor.class, IndexedObject.class);
         super.getVisualDescriptorImpl().extract(new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB));
-        super.indexObjectClass = (Class<O>) IndexedObject.class;
     }
 
     @Override
@@ -24,15 +23,5 @@ public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDe
 
     public String getType() {
         return ColorLayoutDescriptor.class.getCanonicalName();
-    }
-
-    @Override
-    protected LireVisualDescriptor clone() {
-        LireVisualDescriptor newDescriptor = new ColorLayoutDescriptor();
-
-        newDescriptor.setId(this.id);
-        newDescriptor.setValue(this.getValue());
-
-        return newDescriptor;
     }
 }
