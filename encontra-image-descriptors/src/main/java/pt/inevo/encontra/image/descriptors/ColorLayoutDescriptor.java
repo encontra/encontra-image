@@ -5,11 +5,6 @@ import net.semanticmetadata.lire.imageanalysis.ColorLayout;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.index.IndexedObject;
 
-
-/**
- *
- * @author ricardo
- */
 public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
     // numCCoeff = 28, numYCoeff = 64 <=> 
 
@@ -29,5 +24,15 @@ public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDe
 
     public String getType() {
         return ColorLayoutDescriptor.class.getCanonicalName();
+    }
+
+    @Override
+    protected LireVisualDescriptor clone() {
+        LireVisualDescriptor newDescriptor = new ColorLayoutDescriptor();
+
+        newDescriptor.setId(this.id);
+        newDescriptor.setValue(this.getValue());
+
+        return newDescriptor;
     }
 }
