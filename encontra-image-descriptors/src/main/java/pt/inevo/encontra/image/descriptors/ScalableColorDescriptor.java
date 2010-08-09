@@ -1,15 +1,11 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.VisualDescriptor;
 import java.awt.image.BufferedImage;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import net.semanticmetadata.lire.imageanalysis.ScalableColor;
 import pt.inevo.encontra.index.IndexedObject;
 
-/**
- *
- * @author ricardo
- */
-public class ScalableColorDescriptor extends LireVisualDescriptor {
+public class ScalableColorDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
 
     public ScalableColorDescriptor() {
         this("");
@@ -21,13 +17,11 @@ public class ScalableColorDescriptor extends LireVisualDescriptor {
     }
 
     @Override
-    protected Class<? extends VisualDescriptor> getVisualDescriptorImplClass() {
+    protected Class<? extends LireFeature> getVisualDescriptorImplClass() {
         return ScalableColor.class;
     }
 
-    @Override
-    public void setValue(Object o) {
-        descriptor=new ScalableColor();
-        descriptor.setStringRepresentation((String) o);
+    public String getType() {
+        return ScalableColorDescriptor.class.getCanonicalName();
     }
 }

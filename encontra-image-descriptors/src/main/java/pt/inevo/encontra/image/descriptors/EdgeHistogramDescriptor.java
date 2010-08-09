@@ -1,26 +1,27 @@
 package pt.inevo.encontra.image.descriptors;
 
-import at.lux.imageanalysis.VisualDescriptor;
+import java.awt.image.BufferedImage;
 import net.semanticmetadata.lire.imageanalysis.EdgeHistogram;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.index.IndexedObject;
 
-public class EdgeHistogramDescriptor extends LireVisualDescriptor {
+public class EdgeHistogramDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
+    
+    public EdgeHistogramDescriptor() {
+        this("");
+    }
+
     public EdgeHistogramDescriptor(String id) {
         super(id, EdgeHistogramDescriptor.class, IndexedObject.class);
+        super.getVisualDescriptorImpl().extract(new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB));
     }
 
     @Override
-     protected Class<? extends VisualDescriptor> getVisualDescriptorImplClass() {
+    protected Class<? extends LireFeature> getVisualDescriptorImplClass() {
         return EdgeHistogram.class;
     }
 
     public String getType() {
         return EdgeHistogramDescriptor.class.getCanonicalName();
-    }
-
-    @Override
-    public LireVisualDescriptor extract(IndexedObject object) {
-        this.descriptor=new EdgeHistogram();
-        return super.extract(object);
     }
 }
