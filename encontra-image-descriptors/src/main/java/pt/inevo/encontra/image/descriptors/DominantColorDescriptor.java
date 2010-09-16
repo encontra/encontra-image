@@ -9,7 +9,7 @@ import pt.inevo.encontra.index.IndexedObject;
  *
  * @author ricardo
  */
-public class DominantColorDescriptor extends LireVisualDescriptor {
+public class DominantColorDescriptor<O extends IndexedObject> extends LireVisualDescriptor {
 
     public DominantColorDescriptor(){
         this("");
