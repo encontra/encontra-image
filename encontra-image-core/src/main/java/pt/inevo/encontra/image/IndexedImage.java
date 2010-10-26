@@ -12,25 +12,28 @@ import javax.imageio.ImageIO;
  * Image Object for the EnConTRA API
  * @author ricardo
  */
-public class IndexedImage<ID extends Serializable> extends IndexedObject<ID,BufferedImage> {
+public class IndexedImage<ID extends Serializable> extends IndexedObject<ID, BufferedImage> {
+
     private String imagePath;
-    
+
     public IndexedImage() {
         super();
     }
-    public IndexedImage(BufferedImage image){
-        this.object=image;
+
+    public String getImagePath(){
+        return imagePath;
     }
 
+    public IndexedImage(BufferedImage image) {
+        this.object = image;
+    }
 
-    public IndexedImage(String imagePath){
+    public IndexedImage(String imagePath) {
         try {
-            this.imagePath=imagePath;
+            this.imagePath = imagePath;
             object = ImageIO.read(new File(imagePath));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-
-
 }
