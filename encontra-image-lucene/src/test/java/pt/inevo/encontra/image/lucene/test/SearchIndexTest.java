@@ -1,16 +1,6 @@
 package pt.inevo.encontra.image.lucene.test;
 
-import java.awt.image.BufferedImage;
-import java.io.*;
-import javax.imageio.ImageIO;
 import junit.framework.TestCase;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.store.NoLockFactory;
-import org.apache.lucene.store.SimpleFSDirectory;
-import pt.inevo.encontra.image.descriptors.ColorLayoutDescriptor;
-import pt.inevo.encontra.image.descriptors.EdgeHistogramDescriptor;
-import pt.inevo.encontra.image.descriptors.ScalableColorDescriptor;
 
 /**
  * Test the creation of an ImageObject (with the underlying Document from Lucene)

@@ -1,18 +1,9 @@
 package pt.inevo.encontra.image.lucene.test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import junit.framework.TestCase;
-import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.CorruptIndexException;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.store.FSDirectory;
-import pt.inevo.encontra.image.descriptors.ColorLayoutDescriptor;
-import pt.inevo.encontra.image.descriptors.EdgeHistogramDescriptor;
-import pt.inevo.encontra.image.descriptors.ScalableColorDescriptor;
 
 
 /**
