@@ -46,7 +46,7 @@ public class SimpleImageSearcher<O extends IndexedImage> extends SimpleSearcher<
         this.textureWeight=textureWeight;
 
         LuceneIndex index=new LuceneIndex("image-index",SimpleImageDescriptor.class);
-        index.load("testLuceneIndex");
+//        index.load("testLuceneIndex");
         this.setIndex(index);
 
         CompositeDescriptorExtractor extractor=new CompositeDescriptorExtractor(IndexedImage.class, SimpleImageDescriptor.class);

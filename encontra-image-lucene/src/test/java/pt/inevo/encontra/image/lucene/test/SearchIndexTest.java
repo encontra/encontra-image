@@ -1,13 +1,14 @@
 package pt.inevo.encontra.image.lucene.test;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Test the creation of an ImageObject (with the underlying Document from Lucene)
  * @author ricardo
  */
 public class SearchIndexTest extends TestCase {
-   /*
+   
     public SearchIndexTest(String testName) {
         super(testName);
     }
@@ -22,6 +23,12 @@ public class SearchIndexTest extends TestCase {
         super.tearDown();
     }
 
+    @Test
+    public void test(){
+
+    }
+
+    /*
     public void testMain() throws FileNotFoundException, IOException {
         IndexReader reader = IndexReader.open(new SimpleFSDirectory(new File("test-index-path-small"), new NoLockFactory()));
         int numDocs = reader.numDocs();

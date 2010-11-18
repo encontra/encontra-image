@@ -10,11 +10,8 @@ import pt.inevo.encontra.image.lucene.ImageSearcherFactory;
 import pt.inevo.encontra.index.Result;
 import pt.inevo.encontra.index.ResultSet;
 import pt.inevo.encontra.index.search.Searcher;
-import pt.inevo.encontra.query.KnnQuery;
-import pt.inevo.encontra.query.Query;
-import pt.inevo.encontra.query.QueryOrder;
-import pt.inevo.encontra.query.QueryWeight;
-import pt.inevo.encontra.query.RandomQuery;
+import pt.inevo.encontra.query.CriteriaQuery;
+import pt.inevo.encontra.query.criteria.CriteriaBuilderImpl;
 
 /**
  * Test the creation of an ImageObject (with the underlying Document from Lucene)
@@ -83,23 +80,19 @@ public class TestLuceneEncontraIndex extends TestCase {
 
             searcher.insert(img);
         }
-        //luceneIndex.save("testLuceneIndex");
-
 
         String img=getClass().getResource("/images/img04.jpg").getPath();
         IndexedImage query = new IndexedImage(img);
         query.setId(img);
 
-        Query knnQuery = new KnnQuery(query, 10);
-        knnQuery.setOrder(new QueryOrder(1));
-        knnQuery.setWeight(new QueryWeight(1));
+        CriteriaBuilderImpl cb = new CriteriaBuilderImpl();
+        CriteriaQuery criteriaQuery = cb.createQuery().where(cb.similar(query, query));
 
-        Query randomQuery = new RandomQuery();
-
-        ResultSet<IndexedImage> results = searcher.search(knnQuery);
-        System.out.println("Printing the results...");
-        for(Result<IndexedImage> r : results){
-            System.out.println("Similarity: "+r.getSimilarity()+" Result id: " + r.getResult().getId());
-        }
+        // TODO perform here the similarity query
+//        ResultSet<IndexedImage> results = searcher.search(criteriaQuery);
+//        System.out.println("Printing the results...");
+//        for(Result<IndexedImage> r : results){
+//            System.out.println("Similarity: "+r.getSimilarity()+" Result id: " + r.getResult().getId());
+//        }
     }
 }

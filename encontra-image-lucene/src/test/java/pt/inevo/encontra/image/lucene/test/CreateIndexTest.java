@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 
 /**
@@ -52,6 +53,11 @@ public class CreateIndexTest extends TestCase {
         } else {
             return null;
         }
+    }
+
+    @Test
+    public void test() {
+
     }
 
     /*
