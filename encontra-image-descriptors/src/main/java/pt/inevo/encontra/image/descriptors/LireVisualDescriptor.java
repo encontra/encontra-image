@@ -1,5 +1,7 @@
 package pt.inevo.encontra.image.descriptors;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
@@ -112,8 +114,8 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
     private void writeObject(ObjectOutputStream out)
             throws IOException {
         out.writeObject(id);
-        out.writeChars(name);
-        out.writeChars(descriptor.getStringRepresentation());
+        out.writeUTF(name);
+        out.writeUTF(descriptor.getStringRepresentation());
     }
 
     //desserializing the descriptor
@@ -121,6 +123,13 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
             throws IOException, ClassNotFoundException {
         id = (Serializable)in.readObject();
         name = in.readUTF();
+        try {
+            descriptor = getVisualDescriptorImplClass().newInstance();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+           ex.printStackTrace();
+        }
         descriptor.setStringRepresentation(in.readUTF());
     }
 }
