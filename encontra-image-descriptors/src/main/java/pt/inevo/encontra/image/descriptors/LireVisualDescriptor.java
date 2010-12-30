@@ -1,7 +1,5 @@
 package pt.inevo.encontra.image.descriptors;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
@@ -17,6 +15,7 @@ import pt.inevo.encontra.index.IndexedObject;
 
 abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorExtractor<O, LireVisualDescriptor> implements Descriptor, Cloneable {
 
+    protected static BufferedImage origin = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
     protected LireFeature descriptor = null;
     protected String name;
     protected Serializable id;

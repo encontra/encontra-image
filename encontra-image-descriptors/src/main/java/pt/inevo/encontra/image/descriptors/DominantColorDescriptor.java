@@ -17,7 +17,7 @@ public class DominantColorDescriptor<O extends IndexedObject> extends LireVisual
 
     public DominantColorDescriptor(String id) {
         super(id, DominantColorDescriptor.class, IndexedObject.class);
-        super.getVisualDescriptorImpl().extract(new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB));
+        super.getVisualDescriptorImpl().extract(origin);
     }
 
     @Override

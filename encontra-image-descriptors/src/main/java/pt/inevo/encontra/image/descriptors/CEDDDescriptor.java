@@ -1,6 +1,5 @@
 package pt.inevo.encontra.image.descriptors;
 
-import java.awt.image.BufferedImage;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.index.IndexedObject;
@@ -13,7 +12,7 @@ public class CEDDDescriptor<O extends IndexedObject> extends LireVisualDescripto
 
     public CEDDDescriptor(){
         super("CEDD", CEDDDescriptor.class, IndexedObject.class);
-        super.getVisualDescriptorImpl().extract(new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB));
+        super.getVisualDescriptorImpl().extract(origin);
     }
 
     @Override
