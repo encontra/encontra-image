@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 import pt.inevo.encontra.image.IndexedImage;
 import pt.inevo.encontra.image.lucene.ImageSearcherFactory;
-import pt.inevo.encontra.index.Result;
-import pt.inevo.encontra.index.ResultSet;
+import pt.inevo.encontra.common.Result;
+import pt.inevo.encontra.index.ResultSetDefaultImp;
 import pt.inevo.encontra.index.search.Searcher;
 import pt.inevo.encontra.query.CriteriaQuery;
 import pt.inevo.encontra.query.criteria.CriteriaBuilderImpl;
@@ -89,7 +89,7 @@ public class TestLuceneEncontraIndex extends TestCase {
         CriteriaQuery criteriaQuery = cb.createQuery().where(cb.similar(query, query));
 
         // TODO perform here the similarity query
-//        ResultSet<IndexedImage> results = searcher.search(criteriaQuery);
+//        ResultSetDefaultImp<IndexedImage> results = searcher.search(criteriaQuery);
 //        System.out.println("Printing the results...");
 //        for(Result<IndexedImage> r : results){
 //            System.out.println("Similarity: "+r.getSimilarity()+" Result id: " + r.getResult().getId());
