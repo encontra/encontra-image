@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import junit.framework.TestCase;
+import pt.inevo.encontra.common.Result;
+import pt.inevo.encontra.common.ResultSet;
 import pt.inevo.encontra.image.IndexedImage;
 import pt.inevo.encontra.image.lucene.ImageSearcherFactory;
-import pt.inevo.encontra.common.Result;
-import pt.inevo.encontra.index.ResultSetDefaultImp;
 import pt.inevo.encontra.index.search.Searcher;
 import pt.inevo.encontra.query.CriteriaQuery;
 import pt.inevo.encontra.query.criteria.CriteriaBuilderImpl;
@@ -61,8 +61,6 @@ public class TestLuceneEncontraIndex extends TestCase {
         }
     }
 
-
-
     public void testMain() throws FileNotFoundException, IOException {
         String testFilesPath = getClass().getResource("/images").getPath();
 
@@ -88,11 +86,11 @@ public class TestLuceneEncontraIndex extends TestCase {
         CriteriaBuilderImpl cb = new CriteriaBuilderImpl();
         CriteriaQuery criteriaQuery = cb.createQuery().where(cb.similar(query, query));
 
-        // TODO perform here the similarity query
-//        ResultSetDefaultImp<IndexedImage> results = searcher.search(criteriaQuery);
+        //TO DO should we implement this call in this place?
+//        ResultSet<IndexedImage> results = searcher.search(criteriaQuery);
 //        System.out.println("Printing the results...");
 //        for(Result<IndexedImage> r : results){
-//            System.out.println("Similarity: "+r.getSimilarity()+" Result id: " + r.getResult().getId());
+//            System.out.println("Similarity: "+r.getScore()+" Result id: " + r.getResultObject().getId());
 //        }
     }
 }
