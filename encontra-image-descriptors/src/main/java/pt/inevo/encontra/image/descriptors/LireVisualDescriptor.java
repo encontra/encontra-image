@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import pt.inevo.encontra.index.IndexedObject;
@@ -58,10 +59,14 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
 
     @Override
     public LireVisualDescriptor extract(O object) {
+        LireVisualDescriptor newDescriptor = null;
         try {
-            Method extractor = descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
-            extractor.invoke(descriptor, (BufferedImage) object.getValue());
-            setId(object.getId());
+
+            newDescriptor = this.clone();
+            newDescriptor.setId(object.getId());
+            Method extractor = newDescriptor.descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
+            extractor.invoke(newDescriptor.descriptor, (BufferedImage) object.getValue());
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -69,7 +74,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return this.clone();
+        return newDescriptor;
     }
 
     @Override
@@ -80,7 +85,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
             newDescriptor = (LireVisualDescriptor) super.descriptorClass.newInstance();
             newDescriptor.setId(this.id);
             newDescriptor.setValue(this.getValue());
-            
+
         } catch (InstantiationException ex) {
             ex.printStackTrace();
         } catch (IllegalAccessException ex) {
