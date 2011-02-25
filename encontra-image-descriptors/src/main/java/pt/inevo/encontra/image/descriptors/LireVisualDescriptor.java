@@ -59,13 +59,27 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
 
     @Override
     public LireVisualDescriptor extract(O object) {
-        LireVisualDescriptor newDescriptor = null;
-        try {
+//        LireVisualDescriptor newDescriptor = null;
+//        try {
+//
+//            newDescriptor = this.clone();
+//            newDescriptor.setId(object.getId());
+//            Method extractor = newDescriptor.descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
+//            extractor.invoke(newDescriptor.descriptor, (BufferedImage) object.getValue());
+//
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return newDescriptor;
 
-            newDescriptor = this.clone();
-            newDescriptor.setId(object.getId());
-            Method extractor = newDescriptor.descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
-            extractor.invoke(newDescriptor.descriptor, (BufferedImage) object.getValue());
+        try {
+            Method extractor = descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
+            extractor.invoke(descriptor, (BufferedImage) object.getValue());
+            setId(object.getId());
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -74,7 +88,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return newDescriptor;
+        return this.clone();
     }
 
     @Override
@@ -84,6 +98,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
 
             newDescriptor = (LireVisualDescriptor) super.descriptorClass.newInstance();
             newDescriptor.setId(this.id);
+            newDescriptor.name = name;
             newDescriptor.setValue(this.getValue());
 
         } catch (InstantiationException ex) {
@@ -132,7 +147,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         } catch (InstantiationException ex) {
             ex.printStackTrace();
         } catch (IllegalAccessException ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
         descriptor.setStringRepresentation(in.readUTF());
     }

@@ -7,12 +7,14 @@ import pt.inevo.encontra.index.IndexedObject;
 public class EdgeHistogramDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
     
     public EdgeHistogramDescriptor() {
-        this("");
+        this(EdgeHistogramDescriptor.class.getCanonicalName());
+        this.name = EdgeHistogramDescriptor.class.getCanonicalName();
     }
 
     public EdgeHistogramDescriptor(String id) {
         super(id, EdgeHistogramDescriptor.class, IndexedObject.class);
         super.getVisualDescriptorImpl().extract(origin);
+        if (id.equals("")) this.name = EdgeHistogramDescriptor.class.getCanonicalName();
     }
 
     @Override

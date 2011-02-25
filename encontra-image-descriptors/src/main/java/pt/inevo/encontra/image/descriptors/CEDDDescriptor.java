@@ -11,8 +11,14 @@ import pt.inevo.encontra.index.IndexedObject;
 public class CEDDDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
 
     public CEDDDescriptor(){
-        super("CEDD", CEDDDescriptor.class, IndexedObject.class);
+        this(CEDDDescriptor.class.getCanonicalName());
+        this.name = CEDDDescriptor.class.getCanonicalName();
+    }
+
+    public CEDDDescriptor(String id){
+        super(id, CEDDDescriptor.class, IndexedObject.class);
         super.getVisualDescriptorImpl().extract(origin);
+        if (id.equals("")) this.name = CEDDDescriptor.class.getCanonicalName();
     }
 
     @Override

@@ -7,12 +7,14 @@ import pt.inevo.encontra.index.IndexedObject;
 public class ScalableColorDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
 
     public ScalableColorDescriptor() {
-        this("");
+        this(ScalableColorDescriptor.class.getCanonicalName());
+        this.name = ScalableColorDescriptor.class.getCanonicalName();
     }
 
     public ScalableColorDescriptor(String id) {
         super(id, ScalableColorDescriptor.class, IndexedObject.class);
         super.getVisualDescriptorImpl().extract(origin);
+        if (id.equals(""))this.name = ScalableColorDescriptor.class.getCanonicalName();
     }
 
     @Override

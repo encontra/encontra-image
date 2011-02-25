@@ -12,12 +12,14 @@ import pt.inevo.encontra.index.IndexedObject;
 public class DominantColorDescriptor<O extends IndexedObject> extends LireVisualDescriptor {
 
     public DominantColorDescriptor(){
-        this("");
+        this(DominantColorDescriptor.class.getCanonicalName());
+        this.name = DominantColorDescriptor.class.getCanonicalName();
     }
 
     public DominantColorDescriptor(String id) {
         super(id, DominantColorDescriptor.class, IndexedObject.class);
         super.getVisualDescriptorImpl().extract(origin);
+        if (id.equals("")) this.name = DominantColorDescriptor.class.getCanonicalName();
     }
 
     @Override
