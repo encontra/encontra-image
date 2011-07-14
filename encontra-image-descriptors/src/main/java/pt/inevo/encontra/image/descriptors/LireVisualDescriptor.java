@@ -3,16 +3,15 @@ package pt.inevo.encontra.image.descriptors;
 import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.descriptors.Descriptor;
 import pt.inevo.encontra.descriptors.DescriptorExtractor;
+import pt.inevo.encontra.index.IndexedObject;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import pt.inevo.encontra.index.IndexedObject;
 
 abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorExtractor<O, LireVisualDescriptor> implements Descriptor, Cloneable {
 
@@ -59,23 +58,6 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
 
     @Override
     public LireVisualDescriptor extract(O object) {
-//        LireVisualDescriptor newDescriptor = null;
-//        try {
-//
-//            newDescriptor = this.clone();
-//            newDescriptor.setId(object.getId());
-//            Method extractor = newDescriptor.descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
-//            extractor.invoke(newDescriptor.descriptor, (BufferedImage) object.getValue());
-//
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        return newDescriptor;
-
         try {
             Method extractor = descriptor.getClass().getMethod("extract", BufferedImage.class); //There is no common interface with the extract method
             extractor.invoke(descriptor, (BufferedImage) object.getValue());
@@ -96,7 +78,7 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
         LireVisualDescriptor newDescriptor = null;
         try {
 
-            newDescriptor = (LireVisualDescriptor) super.descriptorClass.newInstance();
+            newDescriptor = super.descriptorClass.newInstance();
             newDescriptor.setId(this.id);
             newDescriptor.name = name;
             newDescriptor.setValue(this.getValue());
@@ -112,6 +94,20 @@ abstract class LireVisualDescriptor<O extends IndexedObject> extends DescriptorE
     @Override
     public double getDistance(Descriptor other) {
         return getVisualDescriptorImpl().getDistance(((LireVisualDescriptor) other).getVisualDescriptorImpl());
+    }
+
+    @Override
+    public double getNorm() {
+        try {
+            LireVisualDescriptor newDescriptor = super.descriptorClass.newInstance();
+            newDescriptor.getVisualDescriptorImpl().extract(origin);
+            return getVisualDescriptorImpl().getDistance(newDescriptor.getVisualDescriptorImpl());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override
