@@ -5,7 +5,6 @@ import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import pt.inevo.encontra.index.IndexedObject;
 
 public class ColorLayoutDescriptor<O extends IndexedObject> extends LireVisualDescriptor<O> {
-    // numCCoeff = 28, numYCoeff = 64 <=>
 
     public ColorLayoutDescriptor() {
         this(ColorLayoutDescriptor.class.getCanonicalName());
