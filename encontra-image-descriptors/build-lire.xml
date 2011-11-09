@@ -119,12 +119,28 @@
             <fileset dir="${build}"/>
             <zipfileset src="lib/caliph-emir-cbir.jar"/>
         </jar>
+        <jar jarfile="${dist}/lire-imageanalysis-${versionstring}-sources.jar">
+            <fileset dir="${src}"/>
+	    <fileset dir="../caliphemir-src">
+		<patternset>
+			<include name="at/lux/imageanalysis/ColorLayoutImpl.java"/>
+			<include name="at/lux/imageanalysis/ColorStructureImplementation.java"/>
+			<include name="at/lux/imageanalysis/DominantColorImplementation.java"/>
+			<include name="at/lux/imageanalysis/EdgeHistogramImplementation.java"/>
+			<include name="at/lux/imageanalysis/FastDominantColorImpl.java"/>
+			<include name="at/lux/imageanalysis/ScalableColorImpl.java"/>
+			<include name="at/lux/imageanalysis/VisualDescriptor.java"/>
+			<include name="at/lux/imageanalysis/VisualDescriptorException.java"/>
+		</patternset>
+	    </fileset>
+        </jar>
     </target>
 
     <target name="install" depends="dist">
         <exec dir="${dist}" executable="mvn">
             <arg value="install:install-file"/>
             <arg value="-Dfile=lire-imageanalysis-${versionstring}.jar"/>
+	    <arg value="-Dsources=lire-imageanalysis-${versionstring}-sources.jar"/>
             <arg value="-DgroupId=net.semanticmetadata"/>
             <arg value="-DartifactId=lire-imageanalysis"/>
             <arg value="-Dversion=${versionstring}"/>
