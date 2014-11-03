@@ -17,12 +17,10 @@
         <dependency>
             <groupId>pt.inevo.encontra</groupId>
             <artifactId>encontra-image-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.semanticmetadata</groupId>
             <artifactId>lire-imageanalysis</artifactId>
-            <version>0.8</version>
         </dependency>
     </dependencies>
 </project>
